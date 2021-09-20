@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <title>To Do List</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+      }
+      .create-item {
+        width: 100%;
+        height: 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+      }
+      .title {
+        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fd6f96;
+        font-size: 1.2em;
+      }
+      .title span {
+        font-size: 2em;
+        color: #493240;
+      }
+
+      .create-input {
+        width: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .create-input input {
+        width: 400px;
+        height: 40px;
+        outline: none;
+      }
+      .create-input input:focus {
+        border: 0.2rem solid #493240;
+      }
+      input[type="text"]::placeholder {
+        color: #fd6f96;
+        font-size: 1.2em;
+        text-align: right;
+      }
+      #submit {
+        width: 70px;
+        height: 40px;
+        background-color: #493240;
+        color: #fff;
+        border: none;
+        outline: none;
+      }
+      .entries-container {
+        width: 100%;
+        height: 100vh;
+        background: #3c3b3f; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to right,
+          #605c3c,
+          #3c3b3f
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          to right,
+          #605c3c,
+          #3c3b3f
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      }
+      .list {
+        width: 100%;
+        margin-top: 0.3rem;
+      }
+      .entry {
+        width: 700px;
+        height: 80px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .entry > * {
+        margin-left: 0.3rem;
+        height: 100%;
+        padding: 1rem;
+      }
+      .entry p {
+        width: 80%;
+        align-self: center;
+        color: #fff;
+        font-size: 2em;
+      }
+      .entry span {
+        color: #fd6f96;
+        font-size: 1.7em;
+        cursor: default;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="create-item">
+      <div class="title">
+        <span class="material-icons"> checklist </span>
+        <h1>TO DO LIST</h1>
+      </div>
+      <div class="create-input">
+        <input
+          type="text"
+          name="entry"
+          id="entry"
+          placeholder="............What I have to do   "
+        />
+        <button id="submit">Add</button>
+      </div>
+    </div>
+
+    <div class="entries-container">
+      <div class="list"></div>
+    </div>
+  </body>
+  <script>
+    let entryInput = document.getElementById("entry");
+    let submitButton = document.getElementById("submit");
+    let list = document.querySelector(".list");
+
+    const createEntry = () => {
+      let myEntry = document.createElement("div");
+      myEntry.setAttribute("class", "entry");
+      let entryOutput = document.createElement("p");
+      entryOutput.textContent = entryInput.value;
+      let doneBtn = document.createElement("span");
+      doneBtn.setAttribute("class", "material-icons");
+      doneBtn.textContent = "task_alt";
+      let removeBtn = document.createElement("span");
+      removeBtn.setAttribute("class", "material-icons");
+      removeBtn.textContent = "delete";
+      myEntry.appendChild(entryOutput);
+      myEntry.appendChild(doneBtn);
+      myEntry.appendChild(removeBtn);
+      list.appendChild(myEntry);
+      entryInput.value = "";
+      doneBtn.onclick = () => {
+        doneBtn.style.color = "#B1E693";
+      };
+      removeBtn.onclick = () => {
+        myEntry.remove();
+      };
+    };
+    submitButton.addEventListener("click", createEntry);
+    entryInput.addEventListener("keyup", (event) => {
+      if (event.keyCode == 13) {
+        createEntry();
+      }
+    });
+  </script>
+</html>
